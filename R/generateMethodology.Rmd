@@ -1,0 +1,33 @@
+# Methodology
+
+#### Ryan Angi
+
+This app turns Vegas odds (American odds) into implied probabilities and compares them to the frequency of RV predictions of a death, taking the throne, or dying first for those who entered the pool. I was unable to find reliable American odds for last to die so that is not included in this analysis. 
+
+Notes:  
+
+  + In cases where there were no betting odds for a character (i.e. Dragons/Direwolves) I treated the Vegas odds as +100 (or 50% probability - even).  
+  + In the case of no one taking the throne or no one on the list taking the throne I had to treat that as 0% probability because the odds were already distributed between the other chracters and it would have created unnatural estimates if I had imputed a higher value. For those who selected these values for taking the throne, their predicted average value is underestimated.  
+
+## Leaderboard  
+
+The leaderboard is sorted by the expected total points for each submission. This is a combination of points for "taking the throne" predictions, "death pool" predictions, and "first death" predictions. 
+
+$$Expected\ Thrones\ Points = 7 \times Vegas\ Implied\ Probability\ To\ Take\ The\ Throne\ $$
+
+----
+
+For $k$ total characters, where $Dead$ is a binary (`0` or `1`) prediction of whether someone will die or not. The correct episode (3 points) is not included in this prediciton.
+$$Expected\ Death\ Pool\ Points = \sum_{n=1}^{k} \big(1 \times Vegas\ Implied\ Probability\ To\ Die\ \times Dead\big) - 1 \times \big((1 - Vegas\ Implied\ Probability\ To\ Die) \times Dead\big)$$
+
+----
+
+$$Expected\ First\ Death\ Points = 4 \times Vegas\ Implied\ Probability\ To\ Die\ First$$
+
+----
+
+$$ Total\ Expected\ Points = Expected\ Thrones\ Points + Expected\ Death\ Pool\ Points + Expected\ First\ Death\ Points $$
+
+Actual values will be combined with expected values to update the leaderboard throughout the season.  
+Again, last death is not included in this analysis.
+
