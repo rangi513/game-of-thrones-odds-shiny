@@ -25,6 +25,11 @@ houseIcons <- createHouseIconDivs(selectableHouses)
 ## Data Read and Setup
 got_data <- read_csv("./csv/got_submissions.csv") 
 got_data_cleaned <- clean_got_submission_data(got_data)
+death_pool_by_episode <- clean_death_data_by_episode(got_data)
+
+## Results
+results <- read_csv("./csv/current_results.csv")
+
 
 ## Create Vegas Implied Probabilities
 american_odds <- read_csv("./csv/got_odds.csv")
@@ -40,7 +45,7 @@ take_the_throne_vegas <- american_odds %>%
   mutate(Vegas_Implied_Probabilities = purrr::map_dbl(take_the_throne, convert_american_odds_to_prob)) %>% 
   select(name, Vegas_Implied_Probabilities)
 
-# Change these to reactive values later
+# Base Plotting DataFrames
 death_pool_vs_vegas_avg <- combine_death_pool_data(got_data_cleaned, death_pool_vegas) 
 take_the_throne_combined <- combine_take_the_throne_data(got_data_cleaned, take_the_throne_vegas)
 dies_first_combined <- combine_die_first_data(got_data_cleaned, dies_first_vegas)
@@ -146,7 +151,9 @@ server <- function(input, output, session) {
      create_leaderboard(got_data_cleaned, 
                         take_the_throne_vegas, 
                         death_pool_vegas, 
+                        death_pool_by_episode,
                         dies_first_vegas, 
+                        results,
                         input$full_name, 
                         input$pool)
    }, style = 'bootstrap', 

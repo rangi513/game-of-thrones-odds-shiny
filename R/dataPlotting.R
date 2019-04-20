@@ -54,7 +54,7 @@ generate_die_first_plot <- function(data, submission_data, nameSelection = "All"
 create_death_pool_selection_highlighting_df <- function(data, nameSelection){
   data %>% 
     filter(full_name == nameSelection) %>% 
-    select(-full_name, -Pool, -who_takes_the_throne, -dies_first) %>% 
+    select(-full_name, -Pool, -who_takes_the_throne, -dies_first, -dies_last) %>% 
     gather("name", "Probability") %>% 
     mutate(Probability = Probability * 100)
 }
