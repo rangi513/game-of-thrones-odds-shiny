@@ -126,18 +126,22 @@ ui <- navbarPage(
 
 # Define server logic required to draw a histogram
 server <- function(input, output, session) {
+  
+  ## Render Plots
     output$death_pool_plot <- renderCachedPlot({
-      generate_death_pool_plot(death_pool_vs_vegas_avg, input$sortdirection, input$house)
-    }, cacheKeyExpr = list(input$sortdirection, input$house))
+      generate_death_pool_plot(death_pool_vs_vegas_avg, got_data_cleaned, input$full_name_plots, input$sortdirection, input$house)
+    }, cacheKeyExpr = list(input$full_name_plots, input$sortdirection, input$house))
   
    output$take_the_throne_plot <- renderCachedPlot({
-     generate_take_the_throne_plot(take_the_throne_combined, input$sortdirection, input$house)
-   }, cacheKeyExpr = list(input$sortdirection, input$house))
+     generate_take_the_throne_plot(take_the_throne_combined, got_data_cleaned, input$full_name_plots, input$sortdirection, input$house)
+   }, cacheKeyExpr = list(input$full_name_plots, input$sortdirection, input$house))
    
    output$first_death_plot <- renderCachedPlot({
-     generate_die_first_plot(dies_first_combined, input$sortdirection, input$house)
-   }, cacheKeyExpr = list(input$sortdirection, input$house))
+     generate_die_first_plot(dies_first_combined, got_data_cleaned, input$full_name_plots, input$sortdirection, input$house)
+   }, cacheKeyExpr = list(input$full_name_plots, input$sortdirection, input$house))
    
+   
+   ## Leaderboard
    output$leaderboard <- renderDataTable({
      create_leaderboard(got_data_cleaned, 
                         take_the_throne_vegas, 
@@ -152,6 +156,8 @@ server <- function(input, output, session) {
                 updateNavbarPage(session, "tabs",
                                   selected = "Graphics"))
    
+   
+   ## Raw Data Tables
    output$raw_submissions <- renderDataTable(got_data)
    output$raw_odds <- renderDataTable({american_odds},
                                       caption = "Odds Last Updated on April 15th")
