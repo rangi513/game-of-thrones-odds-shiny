@@ -17,8 +17,15 @@ $$Expected\ Thrones\ Points = 7 \times Vegas\ Implied\ Probability\ To\ Take\ Th
 
 ----
 
-For $k$ total characters, where $Dead$ is a binary (`0` or `1`) prediction of whether someone will die or not. The correct episode (3 points) is not included in this prediciton.
-$$Expected\ Death\ Pool\ Points = \sum_{n=1}^{k} \big(1 \times Vegas\ Implied\ Probability\ To\ Die\ \times Dead\big) - 1 \times \big((1 - Vegas\ Implied\ Probability\ To\ Die) \times Dead\big)$$
+For $k$ total characters. 
+
+$$Expected\ Death\ Pool\ Points = \sum_{n=1}^{k} \begin{cases}
+     \Big( \big(3 \times \frac{1}{6-current\ episode} + 1 \times \big(1-\frac{1}{6-current\ episode}\big)\big) \times Vegas\ Implied\ Probability\ To\ Die_{n} \Big) - 1 \times \Big((1 - Vegas\ Implied\ Probability\ To\ Die_{n})\Big), & if\ Predicted\ Episode\ of\ Death_{n} > current\ episode  \\
+     \Big(1 \times Vegas\ Implied\ Probability\ To\ Die_{n} \big) - 1 \times \big((1 - Vegas\ Implied\ Probability\ To\ Die_{n}) \Big),              & if\ Predicted\ Episode\ of\ Death_{n} \leq current\ episode  \\
+     0,  & \text{otherwise (predicted survival)}
+\end{cases}
+$$
+
 
 ----
 
@@ -26,8 +33,8 @@ $$Expected\ First\ Death\ Points = 4 \times Vegas\ Implied\ Probability\ To\ Die
 
 ----
 
-$$ Total\ Expected\ Points = Expected\ Thrones\ Points + Expected\ Death\ Pool\ Points + Expected\ First\ Death\ Points $$
+$$ Total\ Expected\ Points = Expected\ Future\ Thrones\ Points + Expected\ Future\ Death\ Pool\ Points + Expected\ Future\ First\ Death\ Points + Actual\ Points $$
 
-Actual values will be combined with expected values to update the leaderboard throughout the season.  
+Actual values will be combined with expected future values to update the leaderboard throughout the season.  
 Again, last death is not included in this analysis.
 

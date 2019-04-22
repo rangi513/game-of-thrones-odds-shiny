@@ -48,7 +48,7 @@ create_death_pool_points <- function(data, death_pool_vegas){
 }
 
 create_death_pool_points_with_ppr <- function(death_pool_by_episode, death_pool_vegas, results){
-  max_episode <- 1 # max(results$dead_actual)
+  max_episode <- 2 # max(results$dead_actual)
   ratio_of_episodes_left <- 1/(6-max_episode)
   
   expected_death_points_by_character <- death_pool_by_episode %>% 
@@ -68,14 +68,16 @@ create_death_pool_points_with_ppr <- function(death_pool_by_episode, death_pool_
                            episode_of_death > 0 & 
                              episode_of_death > max_episode  ~ 3, # Have a chance to guess correct death episode
                            episode_of_death > 0 & 
-                             episode_of_death <= max_episode ~ 0, # Guessed someone died in a past episode
+                             episode_of_death <= max_episode ~ 1, # Guessed someone died in a past episode
                            TRUE                              ~ 0  
                            
     )) %>% 
     left_join(death_pool_vegas, by = c("name")) %>% 
     mutate(prob = Vegas_Implied_Probabilities/100,
            # If you predicted someone is going to die, possible positive points - possible negative points, otherwise 0 (survive)
-           expected_future_death_points = if_else(episode_of_death > 0, (PPR*ratio_of_episodes_left + (PPR/3)* 1-ratio_of_episodes_left) * prob - (1 - prob), 0)) 
+           expected_future_death_points = case_when(episode_of_death > 0 & episode_of_death > max_episode  ~ (PPR*ratio_of_episodes_left + (PPR/3)* 1-ratio_of_episodes_left) * prob - (1 - prob),
+                                                    episode_of_death > 0 & episode_of_death <= max_episode ~ 1 * prob - 1 * (1 - prob),
+                                                    TRUE                                                   ~ 0))
   
   expected_death_points_by_submission <- expected_death_points_by_character %>% 
     group_by(full_name, Pool) %>% 
@@ -155,6 +157,7 @@ create_leaderboard <- function(data, take_the_throne_vegas, death_pool_vegas, de
   
   leaderboard_renamed <- leaderboard %>% 
     select(full_name,
+            Pool,
             `Total Points`,
             `Expected Total Points`,
             PPR,
