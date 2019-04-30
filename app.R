@@ -32,7 +32,8 @@ results <- read_csv("./csv/current_results.csv")
 
 
 ## Create Vegas Implied Probabilities
-american_odds <- read_csv("./csv/got_odds.csv")
+american_odds_original <- read_csv("./csv/got_odds.csv")
+american_odds <- read_csv("./csv/got_odds_updated.csv")
 death_pool_vegas <- american_odds %>% 
   mutate(Vegas_Implied_Probabilities = purrr::map_dbl(will_die, convert_american_odds_to_prob)) %>% 
   select(name, Vegas_Implied_Probabilities)
@@ -111,6 +112,7 @@ ui <- navbarPage(
                           fluidRow(
                             column(5, 
                                    titlePanel('American Odds'),
+                                   dataTableOutput('updated_odds'),
                                    dataTableOutput("raw_odds")),
                             column(1),
                             column(6,
@@ -166,8 +168,10 @@ server <- function(input, output, session) {
    
    ## Raw Data Tables
    output$raw_submissions <- renderDataTable(got_data)
-   output$raw_odds <- renderDataTable({american_odds},
-                                      caption = "Odds Last Updated on April 15th")
+   output$raw_odds <- renderDataTable({american_odds_original},
+                                      caption = "Original Odds Last Updated on April 15th")
+   output$updated_odds <- renderDataTable({american_odds},
+                                          caption = "Odds Last Updated on April 29th")
 }
 
 # Run the application 

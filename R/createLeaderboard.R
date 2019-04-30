@@ -48,7 +48,7 @@ create_death_pool_points <- function(data, death_pool_vegas){
 }
 
 create_death_pool_points_with_ppr <- function(death_pool_by_episode, death_pool_vegas, results){
-  max_episode <- 2 # max(results$dead_actual)
+  max_episode <- 3 # max(results$dead_actual)
   ratio_of_episodes_left <- 1/(6-max_episode)
   
   expected_death_points_by_character <- death_pool_by_episode %>% 
