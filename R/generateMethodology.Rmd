@@ -20,7 +20,7 @@ $$Expected\ Thrones\ Points = 7 \times Vegas\ Implied\ Probability\ To\ Take\ Th
 For $k$ total characters. 
 
 $$Expected\ Death\ Pool\ Points = \sum_{n=1}^{k} \cases{
-     \Big( \big(3 \times \frac{1}{6-current\ episode} + 1 \times \big(1-\frac{1}{6-current\ episode}\big)\big) \times Vegas\ Implied\ Probability\ To\ Die_{n} \Big) - 1 \times \Big((1 - Vegas\ Implied\ Probability\ To\ Die_{n})\Big), & if Predicted Episode of Death > current episode  \cr
+     \Big( \big(4 \times \frac{1}{6-current\ episode} + 1 \times \big(1-\frac{1}{6-current\ episode}\big)\big) \times Vegas\ Implied\ Probability\ To\ Die_{n} \Big) - 1 \times \Big((1 - Vegas\ Implied\ Probability\ To\ Die_{n})\Big), & if Predicted Episode of Death > current episode  \cr
      \Big(1 \times Vegas\ Implied\ Probability\ To\ Die_{n} \big) - 1 \times \big((1 - Vegas\ Implied\ Probability\ To\ Die_{n}) \Big),              & if Predicted Episode of Death <= current episode  \cr
      0,  & otherwise (predicted survival) 
 }

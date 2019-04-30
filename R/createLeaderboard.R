@@ -56,7 +56,7 @@ create_death_pool_points_with_ppr <- function(death_pool_by_episode, death_pool_
     left_join(results %>% select(name, dead_actual), by = "name") %>% 
     mutate(death_pool_actual_points = case_when(episode_of_death == 0              ~ 0, # Predicted Survives equals 0 Points
                                                 episode_of_death > 0 & 
-                                                  dead_actual ==  episode_of_death ~ 3, # Correct Episode of Death equals 3 Points
+                                                  dead_actual ==  episode_of_death ~ 4, # Correct Episode of Death equals 4 Points
                                                 episode_of_death > 0 & 
                                                   dead_actual > 0 & 
                                                   dead_actual !=  episode_of_death ~ 1, # Correct Prediction of Death equals 1 Point
@@ -66,7 +66,7 @@ create_death_pool_points_with_ppr <- function(death_pool_by_episode, death_pool_
     )) %>% 
     mutate(PPR = case_when(episode_of_death == 0             ~ 0, # Predicted Survives equals 0 Points
                            episode_of_death > 0 & 
-                             episode_of_death > max_episode  ~ 3, # Have a chance to guess correct death episode
+                             episode_of_death > max_episode  ~ 4, # Have a chance to guess correct death episode
                            episode_of_death > 0 & 
                              episode_of_death <= max_episode ~ 1, # Guessed someone died in a past episode
                            TRUE                              ~ 0  
@@ -75,7 +75,7 @@ create_death_pool_points_with_ppr <- function(death_pool_by_episode, death_pool_
     left_join(death_pool_vegas, by = c("name")) %>% 
     mutate(prob = Vegas_Implied_Probabilities/100,
            # If you predicted someone is going to die, possible positive points - possible negative points, otherwise 0 (survive)
-           expected_future_death_points = case_when(episode_of_death > 0 & episode_of_death > max_episode  ~ (PPR*ratio_of_episodes_left + (PPR/3)* 1-ratio_of_episodes_left) * prob - (1 - prob),
+           expected_future_death_points = case_when(episode_of_death > 0 & episode_of_death > max_episode  ~ (PPR*ratio_of_episodes_left + (PPR/4)* 1-ratio_of_episodes_left) * prob - (1 - prob),
                                                     episode_of_death > 0 & episode_of_death <= max_episode ~ 1 * prob - 1 * (1 - prob),
                                                     TRUE                                                   ~ 0))
   
@@ -146,7 +146,7 @@ create_leaderboard <- function(data, take_the_throne_vegas, death_pool_vegas, de
     mutate(`Total Points` = throne_actual + dies_first_actual + dies_last_actual + death_pool_actual,
            `Expected Total Points` = expected_throne_points + expected_first_death_points + expected_death_pool_points + `Total Points`,
            PPR = throne_ppr + dies_first_ppr + dies_last_ppr + death_pool_ppr) %>% 
-    arrange(desc(`Expected Total Points`))
+    arrange(desc(`Total Points`, `Expected Total Points`))
   
   if(this_full_name != "All"){
     leaderboard <- leaderboard %>% filter(full_name == this_full_name)
