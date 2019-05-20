@@ -1,35 +1,35 @@
 name,dead_actual,dies_first_actual,dies_last_actual,takes_the_throne_actual
-Arya Stark,0,0,0,0
+Arya Stark,-1,0,0,0
 Beric Dondarrion,3,1,0,0
-Bran Stark,0,0,0,0
-Brienne of Tarth,0,0,0,0
-Bronn,0,0,0,0
+Bran Stark,-1,0,0,0
+Brienne of Tarth,-1,0,0,0
+Bronn,-1,0,0,0
 Cersei Lannister,5,0,0,0
-Daenerys Targeryen,0,0,0,0
-Davos Seaworth,0,0,0,0
-Drogon (Dragon),0,0,0,0
+Daenerys Targeryen,6,0,1,0
+Davos Seaworth,-1,0,0,0
+Drogon (Dragon),-1,0,0,0
 Euron Greyjoy,5,0,0,0
-Gendry,0,0,0,0
-Ghost (Direwolf),0,0,0,0
+Gendry,-1,0,0,0
+Ghost (Direwolf),-1,0,0,0
 Gregor Clegane,5,0,0,0
-Grey Worm,0,0,0,0
+Grey Worm,-1,0,0,0
 Ice Viserion Wight (Dragon),3,0,0,0
 Jaime Lannister,5,0,0,0
-Jon Snow,0,0,0,0
+Jon Snow,-1,0,0,0
 Jorah Mormont,3,0,0,0
 Melisandre,3,0,0,0
 Missandei,4,0,0,0
-Nobody (kingdom is destroyed or disbanded),0,0,0,0
-Nymeria (Direwolf),0,0,0,0
-Podrick Payne,0,0,0,0
+Nobody (kingdom is destroyed or disbanded),-1,0,0,0
+Nymeria (Direwolf),-1,0,0,0
+Podrick Payne,-1,0,0,0
 Rhaegal (Dragon),4,0,0,0
-Samwell Tarley,0,0,0,0
+Samwell Tarley,-1,0,0,0
 Sandor Clegane,5,0,0,0
-Sansa Stark,0,0,0,0
-Someone not in this list,0,0,0,0
+Sansa Stark,-1,0,0,0
+Someone not in this list,-1,0,0,0
 The Night King,3,0,0,0
 Theon Greyjoy,3,0,0,0
-Tormund Giantsbane,0,0,0,0
-Tyrion Lannister,0,0,0,0
+Tormund Giantsbane,-1,0,0,0
+Tyrion Lannister,-1,0,0,0
 Varys,5,0,0,0
-Yara Greyjoy,0,0,0,0
+Yara Greyjoy,-1,0,0,0
