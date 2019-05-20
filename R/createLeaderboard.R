@@ -81,8 +81,8 @@ create_death_pool_points_with_ppr <- function(death_pool_by_episode, death_pool_
   
   expected_death_points_by_submission <- expected_death_points_by_character %>% 
     group_by(full_name, Pool) %>% 
-    summarise(death_pool_ppr = sum(PPR),
-              expected_death_pool_points = sum(expected_future_death_points),
+    summarise(death_pool_ppr = 0, # sum(PPR),
+              expected_death_pool_points = sum(death_pool_actual_points), # sum(expected_future_death_points),
               death_pool_actual = sum(death_pool_actual_points))
   return(expected_death_points_by_submission)
 }
@@ -144,7 +144,7 @@ create_leaderboard <- function(data, take_the_throne_vegas, death_pool_vegas, de
     left_join(first_death_points_ppr, by = c("full_name","Pool")) %>% 
     left_join(last_death_points_ppr, by = c("full_name","Pool")) %>% 
     mutate(`Total Points` = throne_actual + dies_first_actual + dies_last_actual + death_pool_actual,
-           `Expected Total Points` = expected_throne_points + expected_first_death_points + expected_death_pool_points + `Total Points`,
+           `Expected Total Points` = `Total Points`, #+ expected_death_pool_points + expected_throne_points + expected_first_death_points ,
            PPR = throne_ppr + dies_first_ppr + dies_last_ppr + death_pool_ppr) %>% 
     arrange(desc(`Total Points`, `Expected Total Points`))
   

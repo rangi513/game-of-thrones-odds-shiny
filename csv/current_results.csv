@@ -1,7 +1,7 @@
 name,dead_actual,dies_first_actual,dies_last_actual,takes_the_throne_actual
 Arya Stark,-1,0,0,0
 Beric Dondarrion,3,1,0,0
-Bran Stark,-1,0,0,0
+Bran Stark,-1,0,0,1
 Brienne of Tarth,-1,0,0,0
 Bronn,-1,0,0,0
 Cersei Lannister,5,0,0,0
